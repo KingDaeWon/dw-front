@@ -37,7 +37,7 @@ const BoardList = () => {
             </thead>
             <tbody>
               {boards.map((board) => (
-                <Board key={board.id} post={board} />
+                <Board key={board.id} board={board} />
               ))}
             </tbody>
           </Table>

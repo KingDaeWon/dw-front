@@ -9,7 +9,6 @@ const Board = ({ board }) => {
     <tr>
       <td>{id}</td>
       <td>
-        {title}
         <Link to={`/boards/detailBoard/${id}`}>{title}</Link>
       </td>
       <td>{memberId}</td>

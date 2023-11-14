@@ -12,19 +12,17 @@ const BoardContextProvider = (props) => {
     });
   };
   const getBoard = async (id) => {
-    return await axios(`/boards/detailBoard/${id}`).then(
-      (response) => response.data
-    );
+    return await axios(`/boards/${id}`).then((response) => response.data);
   };
   const createBoard = async (board) => {
-    const response = await axios.post("/boards/createBoard", board);
+    const response = await axios.post("/boards", board);
     console.log(response); // 201 Created - header.location
   };
   const updateBoard = async (board) => {
-    return await axios.patch(`/boards/updateBoard/${board.id}`, board);
+    return await axios.patch(`/boards/${board.id}`, board);
   };
   const deleteBoard = async (id) => {
-    await axios.delete(`/boards/deleteBoard/${id}`);
+    await axios.delete(`/boards/${id}`);
   };
 
   // 실제 context에 의해 관리될 속성들 (상태값, 함수)

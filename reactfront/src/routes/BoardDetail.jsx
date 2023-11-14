@@ -50,7 +50,7 @@ const BoardDetail = () => {
           <Card.Text>{content}</Card.Text>
         </Card.Body>
         <Card.Footer className="text-muted">
-          Created on {createdAt} by {memberId}
+          작성일 {createdAt} by {memberId}
         </Card.Footer>
       </Card>
     </div>

@@ -3,7 +3,6 @@ package com.dw.study.board.controller;
 import com.dw.study.board.dto.BoardCreateDto;
 import com.dw.study.board.dto.BoardUpdateDto;
 import com.dw.study.board.entity.Board;
-import com.dw.study.board.dto.BoardDto;
 import com.dw.study.board.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

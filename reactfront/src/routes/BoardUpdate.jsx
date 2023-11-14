@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Button, Col, Form, FormControl, Row } from "react-bootstrap";
 import { BoardContext } from "../contexts/BoardContextProvider";
 
@@ -22,7 +22,10 @@ const BoardUpdate = () => {
 
   const onFrmSubmit = (e) => {
     e.preventDefault();
-    updateBoard(board);
+    console.log("Updated Board Data:", board);
+    updateBoard(board).then((board) => {
+      console.log("수정완료", board);
+    });
   };
   const onFrmChange = (e) => {
     setBoard({
@@ -65,7 +68,9 @@ const BoardUpdate = () => {
               <Button type="submit" className="me-3">
                 등록
               </Button>
-              <Button variant="secondary">취소</Button>
+              <Link to={`/boards/detailBoard/${id}`}>
+                <Button variant="secondary">취소</Button>
+              </Link>
             </div>
           </Form>
         </Col>
