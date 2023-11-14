@@ -22,7 +22,7 @@ const BoardContextProvider = (props) => {
     return await axios.patch(`/boards/${board.id}`, board);
   };
   const deleteBoard = async (id) => {
-    await axios.delete(`/boards/${id}`);
+    return await axios.delete(`/boards/${id}`);
   };
 
   // 실제 context에 의해 관리될 속성들 (상태값, 함수)

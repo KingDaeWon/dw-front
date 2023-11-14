@@ -43,7 +43,6 @@ public class BoardController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<?> updateBoard(@PathVariable Long id, @Valid @RequestBody BoardUpdateDto boardUpdateDto) {
-        // 한건 조회
         Board board = boardService.findById(id);
         if(board == null)
             return ResponseEntity.notFound().build();

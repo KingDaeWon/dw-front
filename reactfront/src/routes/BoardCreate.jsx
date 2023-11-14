@@ -23,7 +23,6 @@ const BoardCreate = () => {
     e.preventDefault();
 
     if (!validateForm()) {
-      // 유효성검사
       return;
     }
 

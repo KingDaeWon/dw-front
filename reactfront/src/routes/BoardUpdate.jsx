@@ -69,7 +69,9 @@ const BoardUpdate = () => {
                 등록
               </Button>
               <Link to={`/boards/detailBoard/${id}`}>
-                <Button variant="secondary">취소</Button>
+                <Button variant="secondary" className="me-3">
+                  취소
+                </Button>
               </Link>
             </div>
           </Form>
