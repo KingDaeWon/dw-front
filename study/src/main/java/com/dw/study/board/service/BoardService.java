@@ -10,6 +10,6 @@ public interface BoardService {
 
     Board save(Board board);
 
-    void deleteById(Long id);
+    void delete(Board board);
 
 }

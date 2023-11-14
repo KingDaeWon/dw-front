@@ -20,15 +20,16 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_BOARD_ID")
     private Long id;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 500)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 4000)
     private String content;
 
     @Column(nullable = false)
     private String memberId;
 
+    @Column(columnDefinition = "date default sysdate")
     @CreationTimestamp
     private LocalDateTime createdAt;
 }

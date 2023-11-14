@@ -1,29 +1,26 @@
-import { useEffect, useState } from "react";
 import "./App.css";
-import axios from "axios";
+import { Route, Routes } from "react-router-dom";
+import Layout from "./layout/Layout";
+import Home from "./routes/Home";
+import BoardList from "./routes/BoardList";
+import PageNotFound from "./routes/PageNotFound";
+import BoardDetail from "./routes/BoardDetail";
+import BoardCreate from "./routes/BoardCreate";
+import BoardUpdate from "./routes/BoardUpdate";
 
 function App() {
-  // 요청 받은 정보를 담아줄 변수 선언
-  const [testStr, setTestStr] = useState("");
-
-  // 변수 초기화
-  function callBack(str) {
-    setTestStr(str);
-  }
-
-  // 첫 번째 렌더링을 마친 후 실행
-  useEffect(() => {
-    axios({
-      url: "/api/hello",
-      method: "GET",
-    }).then((res) => {
-      callBack(res.data);
-    });
-  }, []);
-
   return (
     <div className="App">
-      <header className="App-header">{testStr}</header>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="" element={<Home />} />
+          <Route path="boards" element={<BoardList />} />
+          <Route path="boards/detailBoard/:id" element={<BoardDetail />} />
+          <Route path="boards/createBoard" element={<BoardCreate />} />
+          <Route path="boards/updateBoard/:id" element={<BoardUpdate />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Route>
+      </Routes>
     </div>
   );
 }
