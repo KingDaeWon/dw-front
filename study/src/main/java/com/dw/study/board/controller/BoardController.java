@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController // @Controller인데 모든핸들러에 @ResponseBody어노테이션을 적용해준다.
-@RequestMapping("/api/board")
+@RequestMapping("/boards")
 @Slf4j
 public class BoardController {
 
