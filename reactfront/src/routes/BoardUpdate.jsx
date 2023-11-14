@@ -1,36 +1,36 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Button, Col, Form, FormControl, Row } from "react-bootstrap";
-import { PostContext } from "../contexts/PostContextProvider";
+import { BoardContext } from "../contexts/BoardContextProvider";
 
-const PostUpdate = () => {
-  const [post, setPost] = useState({
+const BoardUpdate = () => {
+  const [board, setBoard] = useState({
     id: "",
     title: "",
-    writer: "",
+    memberId: "",
     content: "",
   });
   const { id } = useParams();
   const {
-    actions: { getPost, updatePost },
-  } = useContext(PostContext);
+    actions: { getBoard, updateBoard },
+  } = useContext(BoardContext);
   useEffect(() => {
-    getPost(id).then((post) => setPost(post));
+    getBoard(id).then((board) => setBoard(board));
   }, []);
 
-  // getPost
+  // getBoard
 
   const onFrmSubmit = (e) => {
     e.preventDefault();
-    updatePost(post);
+    updateBoard(board);
   };
   const onFrmChange = (e) => {
-    setPost({
-      ...post,
+    setBoard({
+      ...board,
       [e.target.name]: e.target.value,
     });
   };
-  const { title, writer, content } = post;
+  const { title, memberId, content } = board;
 
   return (
     <div>
@@ -46,10 +46,10 @@ const PostUpdate = () => {
               onChange={onFrmChange}
             ></FormControl>
             <FormControl
-              name="writer"
+              name="memberId"
               className="my-3"
               placeholder="작성자"
-              value={writer}
+              value={memberId}
               onChange={onFrmChange}
             ></FormControl>
             <FormControl
@@ -74,4 +74,4 @@ const PostUpdate = () => {
   );
 };
 
-export default PostUpdate;
+export default BoardUpdate;

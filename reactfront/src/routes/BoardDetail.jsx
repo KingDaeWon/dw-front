@@ -1,40 +1,40 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { PostContext } from "../contexts/PostContextProvider";
+import { BoardContext } from "../contexts/BoardContextProvider";
 import { Badge, Button, Card } from "react-bootstrap";
 
-const PostDetail = () => {
+const BoardDetail = () => {
   // 경로변수
   const params = useParams();
   console.log(params);
   const { id } = params;
 
   const {
-    actions: { getPost },
-  } = useContext(PostContext);
+    actions: { getBoard },
+  } = useContext(BoardContext);
 
-  const [post, setPost] = useState({
+  const [board, setBoard] = useState({
     id: "",
     title: "",
-    writer: "",
+    memberId: "",
     content: "",
     createdAt: "",
   });
 
   useEffect(() => {
-    getPost(id).then((post) => {
-      console.log(post);
-      setPost(post);
+    getBoard(id).then((board) => {
+      console.log(board);
+      setBoard(board);
     });
   }, []);
 
-  const { title, writer, content, createdAt } = post;
+  const { title, memberId, content, createdAt } = board;
 
   return (
     <div>
       <h1>게시글 상세보기</h1>
       <div className="my-2">
-        <Link to={`/posts/update/${id}`}>
+        <Link to={`/boards/updateBoard/${id}`}>
           <Button variant="outline-info">수정</Button>
         </Link>{" "}
         <Link>
@@ -50,11 +50,11 @@ const PostDetail = () => {
           <Card.Text>{content}</Card.Text>
         </Card.Body>
         <Card.Footer className="text-muted">
-          Created on {createdAt} by {writer}
+          Created on {createdAt} by {memberId}
         </Card.Footer>
       </Card>
     </div>
   );
 };
 
-export default PostDetail;
+export default BoardDetail;

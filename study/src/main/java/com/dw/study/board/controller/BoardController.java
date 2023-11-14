@@ -1,5 +1,7 @@
 package com.dw.study.board.controller;
 
+import com.dw.study.board.dto.BoardCreateDto;
+import com.dw.study.board.dto.BoardUpdateDto;
 import com.dw.study.board.entity.Board;
 import com.dw.study.board.dto.BoardDto;
 import com.dw.study.board.service.BoardService;
@@ -9,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.net.URI;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController // @Controller인데 모든핸들러에 @ResponseBody어노테이션을 적용해준다.
@@ -33,27 +36,30 @@ public class BoardController {
         return ResponseEntity.ok(board);
     }
 
-    @PostMapping("/createBoard")
-    public ResponseEntity<?> createTravelBoard(@Valid @RequestBody BoardDto boardDto) {
-        Board board = boardDto.toBoard();
-        return ResponseEntity.ok(boardService.save(board));
+    @PostMapping
+    public ResponseEntity<?> createBoard(@Valid @RequestBody BoardCreateDto boardCreateDto) {
+        Board board = boardService.save(boardCreateDto.toBoard());
+        return ResponseEntity.created(URI.create("/boards" + board.getId())).build();
     }
 
-    @PatchMapping("/updateBoard/{id}")
-    public ResponseEntity<?> updateTravelBoard(@PathVariable Long id, @Valid @RequestBody BoardDto boardDto) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateBoard(@PathVariable Long id, @Valid @RequestBody BoardUpdateDto boardUpdateDto) {
         // 한건 조회
         Board board = boardService.findById(id);
         if(board == null)
             return ResponseEntity.notFound().build();
         // 수정
-        boardDto.toBoard(board);
+        board = boardUpdateDto.toBoard(board);
         boardService.save(board);
-        return ResponseEntity.ok(boardService.findById(id));
+        return ResponseEntity.ok(board);
     }
 
-    @DeleteMapping("/deleteBoard/{id}")
-    public ResponseEntity<?> deleteTravelBoard(@PathVariable Long id) {
-        boardService.deleteById(id);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteBoard(@PathVariable Long id) {
+        Board board = boardService.findById(id);
+        if(board == null)
+            return ResponseEntity.notFound().build();
+        boardService.delete(board);
         return ResponseEntity.noContent().build();
     }
 }
