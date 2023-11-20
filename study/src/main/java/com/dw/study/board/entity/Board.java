@@ -1,5 +1,6 @@
 package com.dw.study.board.entity;
 
+import com.dw.study.comment.entity.Comment;
 import com.dw.study.member.entity.Member;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
@@ -31,10 +32,9 @@ public class Board {
 
     // ManyToOne : 여러개의 댓글, 한개의 아이디
     // cascade = CascadeType.PERSIST : 삭제됐을 때 데이터 관리 어떻게할거야? 유지할거야
-    @JsonIgnoreProperties("commentsPost")
-    @OneToMany(mappedBy = "commentsPost", cascade = CascadeType.PERSIST)
-    @Column(nullable = false)
-    private List<Member> member;
+    @JsonIgnoreProperties("board")  // Ignore the 'board' property in the Member entity to avoid recursion in JSON serialization
+    @OneToMany(mappedBy = "board", cascade = CascadeType.PERSIST)
+    private List<Comment> comment;
 
     @Column(columnDefinition = "date default sysdate")
     @CreationTimestamp

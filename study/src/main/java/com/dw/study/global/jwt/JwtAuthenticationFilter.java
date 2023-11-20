@@ -1,4 +1,4 @@
-package com.dw.study.config;
+package com.dw.study.global.jwt;
 
 import java.io.IOException;
 
