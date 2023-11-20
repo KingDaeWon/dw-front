@@ -24,68 +24,32 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Member extends BaseTimeEntity implements UserDetails {
+public class Member {
     @JsonIgnore
     @Id
-    @Column(nullable = false)
+    @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_MEMBER_ID")
     private Long id;
 
-    @Column(nullable = false, length = 45, unique = true)
+    @Column(length = 45, unique = true)
     private String email;
 
-    @Column(nullable = false)
-    private String password;
-
-    @Column(nullable = false, length = 45, unique = true)
+    @Column(length = 45)
     private String nickname;
+
+
+    @Column(length = 100)
+    private String password;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Column(columnDefinition = "date default sysdate")
-    @CreationTimestamp
-    private LocalDateTime enrollDate;
-
-    // Spring Security는 UserDetails객체를 통해 권한 정보를 관리하기 때문에
-    // UserDetails를 구현한 구현체가 반드시 있어야 한다.
-    // 그래서 엔티티에 상속받아 구현하였다. 즉 Member은 UserDetails의 구현체이다.
     public void addUserAuthority() {
         this.role = Role.USER;
     }
-    public void passwordEncode(PasswordEncoder passwordEncoder) {
+
+    public void encodePassword(PasswordEncoder passwordEncoder){
         this.password = passwordEncoder.encode(password);
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> auth = new ArrayList<>();
-        auth.add(new SimpleGrantedAuthority(role.name()));
-        return auth;
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }

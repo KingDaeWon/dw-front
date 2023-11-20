@@ -13,10 +13,12 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class BaseTimeEntity {
-
+    // 회원가입시 유저 생성시간과 수정시간을 추가해주는 Entity.
     @CreatedDate
-    private LocalDateTime createdDate;
+    private LocalDateTime createDate;
 
     @LastModifiedDate
     private LocalDateTime modifiedDate;
+
+
 }
