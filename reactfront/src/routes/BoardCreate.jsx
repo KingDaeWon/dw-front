@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Button, Col, Form, FormControl, Row } from "react-bootstrap";
 import { BoardContext } from "../contexts/BoardContextProvider";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 
 const BoardCreate = () => {
   const navigate = useNavigate();

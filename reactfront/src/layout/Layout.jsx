@@ -8,7 +8,7 @@ const Layout = () => {
     e.preventDefault(); // a태그 페이지이동 방지
 
     const path = e.target.dataset.to;
-    console.log(path);
+    console.log("Path", path);
     navigate(path);
   };
 
@@ -22,6 +22,11 @@ const Layout = () => {
           <Nav className="me-auto">
             <Nav.Link href="/boards" data-to="/boards" onClick={onLinkClick}>
               자유게시판
+            </Nav.Link>
+          </Nav>
+          <Nav className="me-auto">
+            <Nav.Link href="/boards" data-to="/boards" onClick={onLinkClick}>
+              로그인
             </Nav.Link>
           </Nav>
         </Container>

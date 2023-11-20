@@ -11,7 +11,7 @@ const BoardDetail = () => {
   const { id } = params;
 
   const {
-    actions: { getBoard, deletePost },
+    actions: { getBoard, deleteBoard },
   } = useContext(BoardContext);
 
   const [board, setBoard] = useState({
@@ -31,7 +31,7 @@ const BoardDetail = () => {
 
   const onDelBtnClick = () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
-      deletePost(id).then((response) => {
+      deleteBoard(id).then((response) => {
         console.log(response);
         navigate("/boards");
       });

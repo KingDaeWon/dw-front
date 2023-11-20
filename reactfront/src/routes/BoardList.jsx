@@ -3,18 +3,19 @@ import { Button, Col, Row, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { BoardContext } from "../contexts/BoardContextProvider";
 import Board from "../components/Board";
+import PagingButtons from "../components/PagingButtons";
 
 const BoardList = () => {
   const boardContext = useContext(BoardContext);
-  console.log(boardContext);
+  console.log("컨텍스트", boardContext);
   const {
-    states: { boards },
+    states: { boards, page },
     actions: { getBoards },
   } = boardContext;
 
   useEffect(() => {
     getBoards();
-  }, []);
+  }, [page]); // page값이 변경될때마다 useEffect 콜백 호출
 
   return (
     <div>
@@ -41,6 +42,7 @@ const BoardList = () => {
               ))}
             </tbody>
           </Table>
+          <PagingButtons />
         </Col>
       </Row>
     </div>

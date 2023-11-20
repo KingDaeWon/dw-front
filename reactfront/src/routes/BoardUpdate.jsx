@@ -1,9 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import { Button, Col, Form, FormControl, Row } from "react-bootstrap";
 import { BoardContext } from "../contexts/BoardContextProvider";
 
 const BoardUpdate = () => {
+  const navigate = useNavigate();
   const [board, setBoard] = useState({
     id: "",
     title: "",
@@ -14,6 +15,7 @@ const BoardUpdate = () => {
   const {
     actions: { getBoard, updateBoard },
   } = useContext(BoardContext);
+
   useEffect(() => {
     getBoard(id).then((board) => setBoard(board));
   }, []);
@@ -22,9 +24,10 @@ const BoardUpdate = () => {
 
   const onFrmSubmit = (e) => {
     e.preventDefault();
-    console.log("Updated Board Data:", board);
     updateBoard(board).then((board) => {
       console.log("수정완료", board);
+      // navigate(`/posts/details/${id}`);
+      navigate(-1);
     });
   };
   const onFrmChange = (e) => {

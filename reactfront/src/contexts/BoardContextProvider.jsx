@@ -4,11 +4,24 @@ import axios from "axios";
 export const BoardContext = createContext(); //새로운 Context 객체를 생성하고, 이를 내보내어 외부에서 사용할 수 있게한다.
 
 const BoardContextProvider = (props) => {
-  const [boards, setboards] = useState([]);
+  const [boards, setBoards] = useState([]);
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+
   const getBoards = () => {
-    axios("/boards").then((response) => {
+    axios(`/boards?page=${page}`).then((response) => {
       console.log(response);
-      setboards(response.data);
+      const {
+        // Back코드에서 Content:데이터목록, number: page -> number 속성 값을 page 변수에 할당(현재페이지번호)
+        // totalElements: 총 게시물 수, totalPages: 전체 페이지 수
+        content,
+        number: page,
+        totalElements,
+        totalPages,
+      } = response.data;
+      setBoards(content);
+      // setPage(page); // 이전/다음 연속 클릭시 버그방지
+      setTotalPages(totalPages);
     });
   };
   const getBoard = async (id) => {
@@ -29,6 +42,8 @@ const BoardContextProvider = (props) => {
   const value = {
     states: {
       boards,
+      page,
+      totalPages,
     },
     actions: {
       getBoards,
@@ -36,6 +51,7 @@ const BoardContextProvider = (props) => {
       createBoard,
       updateBoard,
       deleteBoard,
+      setPage,
     },
   };
   return (

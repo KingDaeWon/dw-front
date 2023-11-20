@@ -1,5 +1,7 @@
 package com.dw.study.board.entity;
 
+import com.dw.study.member.entity.Member;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @SequenceGenerator(name = "SEQ_BOARD_ID", sequenceName = "SEQ_BOARD_ID", initialValue = 1, allocationSize = 1)
 @Data
@@ -26,8 +29,12 @@ public class Board {
     @Column(nullable = false, length = 4000)
     private String content;
 
+    // ManyToOne : 여러개의 댓글, 한개의 아이디
+    // cascade = CascadeType.PERSIST : 삭제됐을 때 데이터 관리 어떻게할거야? 유지할거야
+    @JsonIgnoreProperties("commentsPost")
+    @OneToMany(mappedBy = "commentsPost", cascade = CascadeType.PERSIST)
     @Column(nullable = false)
-    private String memberId;
+    private List<Member> member;
 
     @Column(columnDefinition = "date default sysdate")
     @CreationTimestamp
