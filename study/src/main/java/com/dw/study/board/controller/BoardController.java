@@ -39,12 +39,12 @@ public class BoardController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<?> findByContentLike(@RequestParam String content) {
-        return ResponseEntity.ok(boardService.findByContentLike(content));
+    public ResponseEntity<?> findByBoardContentLike(@RequestParam String boardContent) {
+        return ResponseEntity.ok(boardService.findByBoardContentLike(boardContent));
     }
     @GetMapping("/search2")
-    public ResponseEntity<?> findByContentLikeAndMemberIdLike(@RequestParam String content, @RequestParam String writer) {
-        return ResponseEntity.ok(boardService.findByContentLikeAndMemberIdLike(content, writer));
+    public ResponseEntity<?> findByBoardContentLikeAndMemberMemberNameLike(@RequestParam String boardContent, @RequestParam String memberName) {
+        return ResponseEntity.ok(boardService.findByBoardContentLikeAndMemberMemberNameLike(boardContent, memberName));
     }
     @GetMapping("/search3")
     public ResponseEntity<?> findByExample(BoardSearchDto boardSearchDto) {
@@ -57,9 +57,9 @@ public class BoardController {
         return ResponseEntity.ok(boardService.findAll());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id) {
-        Board board = boardService.findById(id);
+    @GetMapping("/{boardId}")
+    public ResponseEntity<?> findById(@PathVariable Long boardId) {
+        Board board = boardService.findById(boardId);
         if(board == null)
             return ResponseEntity.notFound().build();
         return ResponseEntity.ok(board);
@@ -68,12 +68,12 @@ public class BoardController {
     @PostMapping
     public ResponseEntity<?> createBoard(@Valid @RequestBody BoardCreateDto boardCreateDto) {
         Board board = boardService.save(boardCreateDto.toBoard());
-        return ResponseEntity.created(URI.create("/boards" + board.getId())).build();
+        return ResponseEntity.created(URI.create("/boards" + board.getBoardId())).build();
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<?> updateBoard(@PathVariable Long id, @Valid @RequestBody BoardUpdateDto boardUpdateDto) {
-        Board board = boardService.findById(id);
+    @PatchMapping("/{boardId}")
+    public ResponseEntity<?> updateBoard(@PathVariable Long boardId, @Valid @RequestBody BoardUpdateDto boardUpdateDto) {
+        Board board = boardService.findById(boardId);
         if(board == null)
             return ResponseEntity.notFound().build();
         // 수정
@@ -83,9 +83,9 @@ public class BoardController {
         return ResponseEntity.ok(board);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteBoard(@PathVariable Long id) {
-        Board board = boardService.findById(id);
+    @DeleteMapping("/{boardId}")
+    public ResponseEntity<?> deleteBoard(@PathVariable Long boardId) {
+        Board board = boardService.findById(boardId);
         if(board == null)
             return ResponseEntity.notFound().build();
         boardService.delete(board);

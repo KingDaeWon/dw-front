@@ -8,7 +8,7 @@ import java.util.List;
 public interface BoardService {
     List<Board> findAll();
 
-    Board findById(Long id);
+    Board findById(Long boardId);
 
     Board save(Board board);
 
@@ -18,9 +18,9 @@ public interface BoardService {
 
     int getTotalCount();
 
-    List<Board> findByContentLike(String content);
+    List<Board> findByBoardContentLike(String boardContent);
 
-    List<Board> findByContentLikeAndMemberIdLike(String content, String memberId);
+    List<Board> findByBoardContentLikeAndMemberMemberNameLike(String boardContent, String memberName);
 
     List<Board> findByExample(Board board);
 }

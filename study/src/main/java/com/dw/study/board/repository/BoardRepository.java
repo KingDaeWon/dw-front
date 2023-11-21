@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 public interface BoardRepository extends JpaRepository<Board, Long> {
-    List<Board> findAllByOrderByIdDesc();
+    List<Board> findAllByOrderByBoardIdDesc();
 
     /**
      * jpql
@@ -22,11 +22,11 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
      * @param pageable
      * @return
      */
-    Page<Board> findAllByOrderByIdDesc(Pageable pageable);
+    Page<Board> findAllByOrderByBoardIdDesc(Pageable pageable);
 
-    List<Board> findByContentLike(String content);
+    List<Board> findByBoardContentLike(String boardContent);
 
-    List<Board> findByContentLikeAndMemberIdLike(String content, String memberId);
+    List<Board> findByBoardContentLikeAndMemberMemberNameLike(String content, String memberName);
 
 
 }

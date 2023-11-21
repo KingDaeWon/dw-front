@@ -29,7 +29,7 @@ public class AuthService {
     // ID, PW를 받아서 회원가입을 진행, ID의 경우 이미 존재하면 예외발생
     @Transactional
     public MemberResponseDto signup(MemberRequestDto memberRequestDto) {
-        if (memberRepository.existsByMEmberName(memberRequestDto.getMemberName())) {
+        if (memberRepository.existsByMemberName(memberRequestDto.getMemberName())) {
             throw new RuntimeException("이미 가입되어 있는 유저입니다");
         }
 

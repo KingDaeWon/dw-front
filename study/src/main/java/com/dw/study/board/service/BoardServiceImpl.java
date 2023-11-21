@@ -20,12 +20,12 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<Board> findAll() {
-        return boardRepository.findAllByOrderByIdDesc();
+        return boardRepository.findAllByOrderByBoardIdDesc();
     }
 
     @Override
-    public Board findById(Long id) {
-        return boardRepository.findById(id).orElse(null); // null이면 null반환
+    public Board findById(Long boardId) {
+        return boardRepository.findById(boardId).orElse(null); // null이면 null반환
     }
 
     @Override
@@ -40,7 +40,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public Page<Board> findAll(Pageable pageable) {
-        return boardRepository.findAllByOrderByIdDesc(pageable);
+        return boardRepository.findAllByOrderByBoardIdDesc(pageable);
     }
 
 
@@ -58,13 +58,13 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<Board> findByContentLike(String content) {
-        return boardRepository.findByContentLike("%" + content + "%");
+    public List<Board> findByBoardContentLike(String boardContent) {
+        return boardRepository.findByBoardContentLike("%" + boardContent + "%");
     }
 
     @Override
-    public List<Board> findByContentLikeAndMemberIdLike(String content, String memberId) {
-        return boardRepository.findByContentLikeAndMemberIdLike("%" + content + "%", "%" + memberId + "%");
+    public List<Board> findByBoardContentLikeAndMemberMemberNameLike(String boardContent, String memberName) {
+        return boardRepository.findByBoardContentLikeAndMemberMemberNameLike("%" + boardContent + "%", "%" + memberName + "%");
     }
 
     @Override
